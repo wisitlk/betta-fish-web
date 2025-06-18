@@ -13,9 +13,9 @@ export const mockFish: Fish[] = [
     age: '4-5 months',
     price: 45.00,
     images: [
-      'https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400',
-      'https://images.unsplash.com/photo-1472396961693-142e6e269027?w=400',
-      'https://images.unsplash.com/photo-1466721591366-2d5fba72006d?w=400'
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1571752726703-5e7d1f9a3c86?w=400&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=400&h=400&fit=crop'
     ],
     description: 'Beautiful blue rim halfmoon male with perfect form and vibrant coloration. Excellent swimming behavior and healthy appetite.',
     isSold: false,
@@ -35,8 +35,8 @@ export const mockFish: Fish[] = [
     age: '5-6 months',
     price: 65.00,
     images: [
-      'https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400',
-      'https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400'
+      'https://images.unsplash.com/photo-1571752726703-5e7d1f9a3c86?w=400&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop'
     ],
     description: 'Stunning red dragon plakat with intense coloration and excellent form. Very active and healthy specimen.',
     isSold: false,
@@ -56,7 +56,7 @@ export const mockFish: Fish[] = [
     age: '4 months',
     price: 35.00,
     images: [
-      'https://images.unsplash.com/photo-1466721591366-2d5fba72006d?w=400'
+      'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=400&h=400&fit=crop'
     ],
     description: 'Beautiful purple crowntail with excellent ray extension and vibrant colors.',
     isSold: true,
@@ -76,8 +76,8 @@ export const mockFish: Fish[] = [
     age: '3-4 months',
     price: 55.00,
     images: [
-      'https://images.unsplash.com/photo-1472396961693-142e6e269027?w=400',
-      'https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400'
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1571752726703-5e7d1f9a3c86?w=400&h=400&fit=crop'
     ],
     description: 'Gorgeous marble dumbo ear female with large pectoral fins and beautiful pattern.',
     isSold: false,
@@ -97,7 +97,7 @@ export const mockFish: Fish[] = [
     age: '6-7 months',
     price: 120.00,
     images: [
-      'https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400'
+      'https://images.unsplash.com/photo-1583212292454-1fe6229603b7?w=400&h=400&fit=crop'
     ],
     description: 'Impressive giant blue halfmoon male with exceptional size and perfect form.',
     isSold: false,
@@ -118,8 +118,8 @@ export const mockFish: Fish[] = [
     age: '5 months',
     price: 95.00,
     images: [
-      'https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=400',
-      'https://images.unsplash.com/photo-1466721591366-2d5fba72006d?w=400'
+      'https://images.unsplash.com/photo-1571752726703-5e7d1f9a3c86?w=400&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop'
     ],
     description: 'Premium samurai red plakat with exceptional breeding lines and stunning coloration.',
     isSold: false,

@@ -1,16 +1,15 @@
-
 import React from 'react';
 
 const HeroSection = () => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video/Image */}
+      {/* Background with Betta Fish Image */}
       <div className="absolute inset-0 z-0">
         <div className="w-full h-full bg-ocean-gradient opacity-90"></div>
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=1920&h=1080&fit=crop')`
+            backgroundImage: `url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&h=1080&fit=crop')`
           }}
         ></div>
       </div>

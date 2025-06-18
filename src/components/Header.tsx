@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, User, ShoppingCart, Menu, X } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -29,7 +30,6 @@ const Header = () => {
 
   return (
     <>
-      {/* Announcement Bar */}
       <div className="bg-black text-white text-center py-2 text-sm">
         Free shipping on orders over $100 | Live arrival guarantee on all fish
       </div>
@@ -39,29 +39,25 @@ const Header = () => {
       } border-b border-gray-200`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
             <div className="flex-shrink-0">
-              <a href="/" className="text-2xl font-bold text-black">
+              <Link to="/" className="text-2xl font-bold text-black">
                 Thailand Betta Fish
-              </a>
+              </Link>
             </div>
 
-            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
+                  to={link.href}
                   className="text-gray-900 hover:text-gray-600 text-sm font-medium transition-colors duration-200"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </nav>
 
-            {/* Right Side Icons */}
             <div className="flex items-center space-x-4">
-              {/* Search */}
               <div className="relative">
                 <button
                   onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -81,14 +77,12 @@ const Header = () => {
                 )}
               </div>
 
-              {/* User Account */}
               <button className="p-2 text-gray-900 hover:text-gray-600 transition-colors duration-200">
                 <User size={20} />
               </button>
 
-              {/* Shopping Cart */}
-              <button
-                onClick={toggleCart}
+              <Link
+                to="/cart"
                 className="relative p-2 text-gray-900 hover:text-gray-600 transition-colors duration-200"
               >
                 <ShoppingCart size={20} />
@@ -97,9 +91,8 @@ const Header = () => {
                     {getTotalItems()}
                   </span>
                 )}
-              </button>
+              </Link>
 
-              {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="lg:hidden p-2 text-gray-900 hover:text-gray-600 transition-colors duration-200"
@@ -109,19 +102,18 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Mobile Navigation */}
           {isMobileMenuOpen && (
             <div className="lg:hidden bg-white border-t border-gray-200">
               <nav className="py-4 space-y-2">
                 {navLinks.map((link) => (
-                  <a
+                  <Link
                     key={link.label}
-                    href={link.href}
+                    to={link.href}
                     className="block px-4 py-2 text-gray-900 hover:text-gray-600 hover:bg-gray-50 transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
               </nav>
             </div>
