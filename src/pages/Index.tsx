@@ -17,102 +17,96 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       <main>
         <HeroSection />
         <FeaturedCategories />
         
         {/* New Arrivals Carousel */}
-        <div className="bg-white">
-          <FishCarousel
-            title="New Arrivals"
-            subtitle="Fresh imports from Thailand's premier breeders"
-            fish={newArrivals}
-            onFishClick={handleFishClick}
-          />
-        </div>
+        <FishCarousel
+          title="New Arrivals"
+          subtitle="Fresh imports from Thailand's premier breeders"
+          fish={newArrivals}
+          onFishClick={handleFishClick}
+        />
 
         {/* Best Sellers Carousel */}
-        <div className="bg-slate-50">
-          <FishCarousel
-            title="Best Sellers"
-            subtitle="Our most popular and beloved specimens"
-            fish={bestSellers}
-            onFishClick={handleFishClick}
-          />
-        </div>
+        <FishCarousel
+          title="Best Sellers"
+          subtitle="Our most popular and beloved specimens"
+          fish={bestSellers}
+          onFishClick={handleFishClick}
+        />
 
         {/* Newsletter Section */}
-        <section className="py-16 lg:py-24 bg-ocean-gradient">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-2xl mx-auto">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                Stay Updated
-              </h2>
-              <p className="text-xl text-slate-100 mb-8">
-                Get notified about new arrivals and exclusive offers
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-gold-500"
-                />
-                <button className="bg-gold-500 hover:bg-gold-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200">
-                  Subscribe
-                </button>
-              </div>
+        <section className="py-16 lg:py-20 bg-black">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+              Stay in the Loop
+            </h2>
+            <p className="text-xl text-gray-300 mb-8">
+              Get notified about new arrivals, exclusive offers, and care tips
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email address"
+                className="flex-1 px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
+              />
+              <button className="bg-white text-black px-8 py-3 font-semibold hover:bg-gray-100 transition-colors duration-200">
+                Subscribe
+              </button>
             </div>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12">
-        <div className="container mx-auto px-4">
+      <footer className="bg-white border-t border-gray-200 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4 text-gold-300">Thailand Betta Fish</h3>
-              <p className="text-slate-300">
+              <h3 className="text-lg font-bold mb-4 text-black">Thailand Betta Fish</h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
                 Premium Betta fish from Thailand's finest breeders, shipped worldwide with live arrival guarantee.
               </p>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-slate-300">
-                <li><a href="#" className="hover:text-gold-300 transition-colors">Shop All</a></li>
-                <li><a href="#" className="hover:text-gold-300 transition-colors">New Arrivals</a></li>
-                <li><a href="#" className="hover:text-gold-300 transition-colors">Care Guide</a></li>
-                <li><a href="#" className="hover:text-gold-300 transition-colors">Shipping Info</a></li>
+              <h4 className="font-semibold mb-4 text-black">Shop</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><a href="#" className="hover:text-black transition-colors">All Products</a></li>
+                <li><a href="#" className="hover:text-black transition-colors">New Arrivals</a></li>
+                <li><a href="#" className="hover:text-black transition-colors">Best Sellers</a></li>
+                <li><a href="#" className="hover:text-black transition-colors">Giant Bettas</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-slate-300">
-                <li><a href="#" className="hover:text-gold-300 transition-colors">Contact Us</a></li>
-                <li><a href="#" className="hover:text-gold-300 transition-colors">FAQ</a></li>
-                <li><a href="#" className="hover:text-gold-300 transition-colors">Returns</a></li>
-                <li><a href="#" className="hover:text-gold-300 transition-colors">Track Order</a></li>
+              <h4 className="font-semibold mb-4 text-black">Support</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><a href="#" className="hover:text-black transition-colors">Contact Us</a></li>
+                <li><a href="#" className="hover:text-black transition-colors">Shipping Info</a></li>
+                <li><a href="#" className="hover:text-black transition-colors">Care Guide</a></li>
+                <li><a href="#" className="hover:text-black transition-colors">Returns</a></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Connect</h4>
-              <ul className="space-y-2 text-slate-300">
-                <li><a href="#" className="hover:text-gold-300 transition-colors">Facebook</a></li>
-                <li><a href="#" className="hover:text-gold-300 transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-gold-300 transition-colors">YouTube</a></li>
-                <li><a href="#" className="hover:text-gold-300 transition-colors">Newsletter</a></li>
+              <h4 className="font-semibold mb-4 text-black">Connect</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><a href="#" className="hover:text-black transition-colors">Instagram</a></li>
+                <li><a href="#" className="hover:text-black transition-colors">Facebook</a></li>
+                <li><a href="#" className="hover:text-black transition-colors">YouTube</a></li>
+                <li><a href="#" className="hover:text-black transition-colors">Email</a></li>
               </ul>
             </div>
           </div>
           
-          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-400">
-            <p>&copy; 2024 Thailand Betta Fish. All rights reserved.</p>
+          <div className="border-t border-gray-200 mt-8 pt-8 text-center">
+            <p className="text-sm text-gray-600">&copy; 2024 Thailand Betta Fish. All rights reserved.</p>
           </div>
         </div>
       </footer>

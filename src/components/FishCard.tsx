@@ -20,46 +20,46 @@ const FishCard: React.FC<FishCardProps> = ({ fish, onClick }) => {
 
   return (
     <div
-      className={`bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-pointer ${
+      className={`group bg-white border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-lg cursor-pointer ${
         fish.isSold ? 'opacity-75' : ''
       }`}
       onClick={onClick}
     >
-      <div className="relative aspect-square overflow-hidden">
+      <div className="relative aspect-square overflow-hidden bg-gray-50">
         <img
           src={fish.images[0]}
           alt={fish.name}
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         
         {/* Sold Overlay */}
         {fish.isSold && (
-          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-            <span className="text-white text-2xl font-bold bg-red-600 px-6 py-2 rounded-lg">
-              SOLD
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+            <span className="text-white text-xl font-bold bg-red-600 px-4 py-2 rounded">
+              SOLD OUT
             </span>
           </div>
         )}
 
         {/* Badges */}
-        <div className="absolute top-4 left-4 space-y-2">
+        <div className="absolute top-3 left-3 space-y-1">
           {fish.isNewArrival && (
-            <span className="bg-green-500 text-white px-2 py-1 rounded-md text-xs font-semibold">
+            <span className="new-badge text-white px-2 py-1 text-xs font-semibold rounded">
               NEW
             </span>
           )}
           {fish.isBestSeller && (
-            <span className="bg-gold-500 text-white px-2 py-1 rounded-md text-xs font-semibold">
-              BEST SELLER
+            <span className="sale-badge text-white px-2 py-1 text-xs font-semibold rounded">
+              BESTSELLER
             </span>
           )}
           {fish.isGiantBetta && (
-            <span className="bg-purple-500 text-white px-2 py-1 rounded-md text-xs font-semibold">
+            <span className="bg-purple-600 text-white px-2 py-1 text-xs font-semibold rounded">
               GIANT
             </span>
           )}
           {fish.isSamurai && (
-            <span className="bg-red-500 text-white px-2 py-1 rounded-md text-xs font-semibold">
+            <span className="bg-yellow-600 text-white px-2 py-1 text-xs font-semibold rounded">
               SAMURAI
             </span>
           )}
@@ -69,31 +69,31 @@ const FishCard: React.FC<FishCardProps> = ({ fish, onClick }) => {
         {!fish.isSold && (
           <button
             onClick={handleAddToCart}
-            className="absolute bottom-4 right-4 bg-ocean-600 text-white p-2 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300 hover:bg-ocean-700"
+            className="absolute bottom-3 right-3 bg-black text-white px-3 py-2 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-gray-800"
           >
-            <span className="text-sm">+</span>
+            Add to Cart
           </button>
         )}
       </div>
 
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
-          <span className="text-sm text-slate-500 font-medium">{fish.code}</span>
-          <span className="text-lg font-bold text-ocean-600">${fish.price.toFixed(2)}</span>
+          <span className="text-sm text-gray-500 font-medium">{fish.code}</span>
+          <span className="text-lg font-bold text-black">${fish.price.toFixed(2)}</span>
         </div>
         
-        <h3 className="font-semibold text-slate-900 mb-1 line-clamp-2">{fish.name}</h3>
+        <h3 className="font-medium text-gray-900 mb-2 line-clamp-2 leading-tight">{fish.name}</h3>
         
-        <div className="flex items-center justify-between text-sm text-slate-600">
+        <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
           <span>{fish.tailType}</span>
           <span>{fish.gender}</span>
         </div>
         
-        <div className="flex flex-wrap gap-1 mt-2">
+        <div className="flex flex-wrap gap-1">
           {fish.color.slice(0, 3).map((color) => (
             <span
               key={color}
-              className="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs"
+              className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded"
             >
               {color}
             </span>
