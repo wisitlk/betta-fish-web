@@ -1,14 +1,24 @@
 
 import React, { useState, useEffect } from 'react';
-import { Search, User, ShoppingCart, Menu, X } from 'lucide-react';
+import { Search, User, ShoppingCart, Menu, X, LogOut, Plus } from 'lucide-react';
 import { useCartStore } from '../stores/cartStore';
+import { useAuth } from '@/contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { getTotalItems, toggleCart } = useCartStore();
+  const { getTotalItems } = useCartStore();
+  const { user, signOut, isAdmin } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,8 +35,11 @@ const Header = () => {
     { label: 'Best Sellers', href: '/shop?filter=bestsellers' },
     { label: 'Giant Bettas', href: '/shop?filter=giant' },
     { label: 'Samurai Bettas', href: '/shop?filter=samurai' },
-    { label: 'Care Guide', href: '/care' }
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <>
@@ -77,9 +90,42 @@ const Header = () => {
                 )}
               </div>
 
-              <button className="p-2 text-gray-900 hover:text-gray-600 transition-colors duration-200">
-                <User size={20} />
-              </button>
+              {user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="relative">
+                      <User size={20} />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem className="font-medium">
+                      {user.email}
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    {isAdmin && (
+                      <>
+                        <DropdownMenuItem asChild>
+                          <Link to="/admin/add-product" className="flex items-center">
+                            <Plus className="mr-2 h-4 w-4" />
+                            Add Product
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                      </>
+                    )}
+                    <DropdownMenuItem onClick={handleSignOut} className="flex items-center">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Sign Out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link to="/auth">
+                  <Button variant="ghost" size="icon">
+                    <User size={20} />
+                  </Button>
+                </Link>
+              )}
 
               <Link
                 to="/cart"
@@ -115,6 +161,24 @@ const Header = () => {
                     {link.label}
                   </Link>
                 ))}
+                {!user && (
+                  <Link
+                    to="/auth"
+                    className="block px-4 py-2 text-gray-900 hover:text-gray-600 hover:bg-gray-50 transition-colors duration-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+                )}
+                {isAdmin && (
+                  <Link
+                    to="/admin/add-product"
+                    className="block px-4 py-2 text-gray-900 hover:text-gray-600 hover:bg-gray-50 transition-colors duration-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Add Product
+                  </Link>
+                )}
               </nav>
             </div>
           )}

@@ -1,17 +1,49 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
 import FeaturedCategories from '../components/FeaturedCategories';
 import FishCarousel from '../components/FishCarousel';
 import ShoppingCart from '../components/ShoppingCart';
-import { mockFish } from '../data/mockFish';
+import { Fish } from '../types/fish';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
-  const newArrivals = mockFish.filter(fish => fish.isNewArrival);
-  const bestSellers = mockFish.filter(fish => fish.isBestSeller);
+  const [newArrivals, setNewArrivals] = useState<Fish[]>([]);
+  const [bestSellers, setBestSellers] = useState<Fish[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleFishClick = (fish: any) => {
+  useEffect(() => {
+    fetchFish();
+  }, []);
+
+  const fetchFish = async () => {
+    try {
+      // Fetch new arrivals
+      const { data: newArrivalsData } = await supabase
+        .from('fish')
+        .select('*')
+        .eq('is_new_arrival', true)
+        .limit(8);
+
+      // Fetch best sellers
+      const { data: bestSellersData } = await supabase
+        .from('fish')
+        .select('*')
+        .eq('is_best_seller', true)
+        .limit(8);
+
+      setNewArrivals(newArrivalsData || []);
+      setBestSellers(bestSellersData || []);
+    } catch (error) {
+      console.error('Error fetching fish:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleFishClick = (fish: Fish) => {
     console.log('Fish clicked:', fish);
     // Navigate to product detail page
   };
@@ -23,21 +55,29 @@ const Index = () => {
         <HeroSection />
         <FeaturedCategories />
         
-        {/* New Arrivals Carousel */}
-        <FishCarousel
-          title="New Arrivals"
-          subtitle="Fresh imports from Thailand's premier breeders"
-          fish={newArrivals}
-          onFishClick={handleFishClick}
-        />
+        {!loading && (
+          <>
+            {/* New Arrivals Carousel */}
+            {newArrivals.length > 0 && (
+              <FishCarousel
+                title="New Arrivals"
+                subtitle="Fresh imports from Thailand's premier breeders"
+                fish={newArrivals}
+                onFishClick={handleFishClick}
+              />
+            )}
 
-        {/* Best Sellers Carousel */}
-        <FishCarousel
-          title="Best Sellers"
-          subtitle="Our most popular and beloved specimens"
-          fish={bestSellers}
-          onFishClick={handleFishClick}
-        />
+            {/* Best Sellers Carousel */}
+            {bestSellers.length > 0 && (
+              <FishCarousel
+                title="Best Sellers"
+                subtitle="Our most popular and beloved specimens"
+                fish={bestSellers}
+                onFishClick={handleFishClick}
+              />
+            )}
+          </>
+        )}
 
         {/* Newsletter Section */}
         <section className="py-16 lg:py-20 bg-black">
@@ -77,10 +117,10 @@ const Index = () => {
             <div>
               <h4 className="font-semibold mb-4 text-black">Shop</h4>
               <ul className="space-y-2 text-sm text-gray-600">
-                <li><a href="#" className="hover:text-black transition-colors">All Products</a></li>
-                <li><a href="#" className="hover:text-black transition-colors">New Arrivals</a></li>
-                <li><a href="#" className="hover:text-black transition-colors">Best Sellers</a></li>
-                <li><a href="#" className="hover:text-black transition-colors">Giant Bettas</a></li>
+                <li><Link to="/shop" className="hover:text-black transition-colors">All Products</Link></li>
+                <li><Link to="/shop?filter=new" className="hover:text-black transition-colors">New Arrivals</Link></li>
+                <li><Link to="/shop?filter=bestsellers" className="hover:text-black transition-colors">Best Sellers</Link></li>
+                <li><Link to="/shop?filter=giant" className="hover:text-black transition-colors">Giant Bettas</Link></li>
               </ul>
             </div>
             
@@ -100,7 +140,7 @@ const Index = () => {
                 <li><a href="#" className="hover:text-black transition-colors">Instagram</a></li>
                 <li><a href="#" className="hover:text-black transition-colors">Facebook</a></li>
                 <li><a href="#" className="hover:text-black transition-colors">YouTube</a></li>
-                <li><a href="#" className="hover:text-black transition-colors">Email</a></li>
+                <li><Link to="/auth" className="hover:text-black transition-colors">Sign In</Link></li>
               </ul>
             </div>
           </div>

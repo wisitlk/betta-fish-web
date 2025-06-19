@@ -9,16 +9,221 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      fish: {
+        Row: {
+          acclimatization_guide: string | null
+          age: string
+          code: string
+          color: string[]
+          created_at: string
+          description: string | null
+          gender: Database["public"]["Enums"]["gender"]
+          id: string
+          images: string[]
+          is_best_seller: boolean
+          is_giant_betta: boolean
+          is_new_arrival: boolean
+          is_samurai: boolean
+          is_sold: boolean
+          name: string
+          price: number
+          shipping_info: string | null
+          tail_type: Database["public"]["Enums"]["tail_type"]
+          type: string
+          updated_at: string
+          video: string | null
+        }
+        Insert: {
+          acclimatization_guide?: string | null
+          age: string
+          code: string
+          color?: string[]
+          created_at?: string
+          description?: string | null
+          gender: Database["public"]["Enums"]["gender"]
+          id?: string
+          images?: string[]
+          is_best_seller?: boolean
+          is_giant_betta?: boolean
+          is_new_arrival?: boolean
+          is_samurai?: boolean
+          is_sold?: boolean
+          name: string
+          price: number
+          shipping_info?: string | null
+          tail_type: Database["public"]["Enums"]["tail_type"]
+          type: string
+          updated_at?: string
+          video?: string | null
+        }
+        Update: {
+          acclimatization_guide?: string | null
+          age?: string
+          code?: string
+          color?: string[]
+          created_at?: string
+          description?: string | null
+          gender?: Database["public"]["Enums"]["gender"]
+          id?: string
+          images?: string[]
+          is_best_seller?: boolean
+          is_giant_betta?: boolean
+          is_new_arrival?: boolean
+          is_samurai?: boolean
+          is_sold?: boolean
+          name?: string
+          price?: number
+          shipping_info?: string | null
+          tail_type?: Database["public"]["Enums"]["tail_type"]
+          type?: string
+          updated_at?: string
+          video?: string | null
+        }
+        Relationships: []
+      }
+      order_items: {
+        Row: {
+          created_at: string
+          fish_id: string
+          id: string
+          order_id: string
+          price: number
+          quantity: number
+        }
+        Insert: {
+          created_at?: string
+          fish_id: string
+          id?: string
+          order_id: string
+          price: number
+          quantity?: number
+        }
+        Update: {
+          created_at?: string
+          fish_id?: string
+          id?: string
+          order_id?: string
+          price?: number
+          quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_fish_id_fkey"
+            columns: ["fish_id"]
+            isOneToOne: false
+            referencedRelation: "fish"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          created_at: string
+          id: string
+          shipping_address: Json | null
+          status: string
+          total_amount: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          shipping_address?: Json | null
+          status?: string
+          total_amount: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          shipping_address?: Json | null
+          status?: string
+          total_amount?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _user_id: string
+          _role: Database["public"]["Enums"]["app_role"]
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
+      gender: "Male" | "Female"
+      tail_type:
+        | "Halfmoon"
+        | "Plakat"
+        | "Crowntail"
+        | "Dumbo Ear"
+        | "Rosetail"
+        | "Spade Tail"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +338,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+      gender: ["Male", "Female"],
+      tail_type: [
+        "Halfmoon",
+        "Plakat",
+        "Crowntail",
+        "Dumbo Ear",
+        "Rosetail",
+        "Spade Tail",
+      ],
+    },
   },
 } as const
