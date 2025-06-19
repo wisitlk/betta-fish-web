@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import Header from '@/components/Header';
 import FishCard from '@/components/FishCard';
 import { Fish } from '@/types/fish';
+import { transformDbFishToFish } from '@/utils/fishTransform';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -58,7 +58,8 @@ const Shop = () => {
         });
         console.error('Error fetching fish:', error);
       } else {
-        setFish(data || []);
+        const transformedFish = (data || []).map(transformDbFishToFish);
+        setFish(transformedFish);
       }
     } catch (error) {
       console.error('Error:', error);

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
@@ -12,6 +11,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { Database } from '@/integrations/supabase/types';
+
+type TailType = Database['public']['Enums']['tail_type'];
+type Gender = Database['public']['Enums']['gender'];
 
 const AdminAddProduct = () => {
   const { isAdmin, loading } = useAuth();
@@ -21,9 +24,9 @@ const AdminAddProduct = () => {
     code: '',
     name: '',
     type: '',
-    tail_type: '',
+    tail_type: '' as TailType,
     color: [''],
-    gender: '',
+    gender: '' as Gender,
     age: '',
     price: '',
     images: [''],
@@ -116,7 +119,7 @@ const AdminAddProduct = () => {
 
       const { error } = await supabase
         .from('fish')
-        .insert([dataToSubmit]);
+        .insert(dataToSubmit);
 
       if (error) {
         toast({
@@ -135,9 +138,9 @@ const AdminAddProduct = () => {
           code: '',
           name: '',
           type: '',
-          tail_type: '',
+          tail_type: '' as TailType,
           color: [''],
-          gender: '',
+          gender: '' as Gender,
           age: '',
           price: '',
           images: [''],
@@ -210,7 +213,7 @@ const AdminAddProduct = () => {
                 
                 <div className="space-y-2">
                   <Label htmlFor="tail_type">Tail Type</Label>
-                  <Select value={formData.tail_type} onValueChange={(value) => handleInputChange('tail_type', value)}>
+                  <Select value={formData.tail_type} onValueChange={(value) => handleInputChange('tail_type', value as TailType)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select tail type" />
                     </SelectTrigger>
@@ -227,7 +230,7 @@ const AdminAddProduct = () => {
                 
                 <div className="space-y-2">
                   <Label htmlFor="gender">Gender</Label>
-                  <Select value={formData.gender} onValueChange={(value) => handleInputChange('gender', value)}>
+                  <Select value={formData.gender} onValueChange={(value) => handleInputChange('gender', value as Gender)}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select gender" />
                     </SelectTrigger>
