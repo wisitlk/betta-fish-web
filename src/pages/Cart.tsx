@@ -1,16 +1,18 @@
 
 import React from 'react';
 import { useCartStore } from '../stores/cartStore';
-import { Minus, Plus, X, ArrowLeft, CreditCard } from 'lucide-react';
+import { X, ArrowLeft, CreditCard } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 const Cart = () => {
   const { items, removeItem, clearCart, getTotalPrice } = useCartStore();
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
             <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Cart</h1>
             <div className="bg-white rounded-lg p-12">
@@ -30,8 +32,9 @@ const Cart = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Your Cart ({items.length} items)</h1>
           <button

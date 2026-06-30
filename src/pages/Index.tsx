@@ -6,6 +6,7 @@ import HeroSection from '../components/HeroSection';
 import FeaturedCategories from '../components/FeaturedCategories';
 import FishCarousel from '../components/FishCarousel';
 import ShoppingCart from '../components/ShoppingCart';
+import ProductQuickView from '../components/ProductQuickView';
 import { Fish } from '../types/fish';
 import { transformDbFishToFish } from '@/utils/fishTransform';
 import { Link } from 'react-router-dom';
@@ -14,6 +15,8 @@ const Index = () => {
   const [newArrivals, setNewArrivals] = useState<Fish[]>([]);
   const [bestSellers, setBestSellers] = useState<Fish[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedFish, setSelectedFish] = useState<Fish | null>(null);
+  const [quickViewOpen, setQuickViewOpen] = useState(false);
 
   useEffect(() => {
     fetchFish();
@@ -48,8 +51,8 @@ const Index = () => {
   };
 
   const handleFishClick = (fish: Fish) => {
-    console.log('Fish clicked:', fish);
-    // Navigate to product detail page
+    setSelectedFish(fish);
+    setQuickViewOpen(true);
   };
 
   return (
@@ -154,6 +157,11 @@ const Index = () => {
         </footer>
       </main>
 
+      <ProductQuickView
+        fish={selectedFish}
+        open={quickViewOpen}
+        onClose={() => setQuickViewOpen(false)}
+      />
       <ShoppingCart />
     </div>
   );

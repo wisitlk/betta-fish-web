@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Shop from "./pages/Shop";
+import Wishlist from "./pages/Wishlist";
 import Auth from "./pages/Auth";
 import AdminAddProduct from "./pages/AdminAddProduct";
 import AdminUsers from "./pages/AdminUsers";
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/shipping" element={<ShippingAddress />} />

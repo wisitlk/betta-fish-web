@@ -2,10 +2,13 @@
 import React, { useState } from 'react';
 import { useCartStore } from '../stores/cartStore';
 import { ArrowLeft, Lock, CreditCard } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import Header from '../components/Header';
 
 const Checkout = () => {
   const { items, getTotalPrice, clearCart } = useCartStore();
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     email: '',
@@ -35,14 +38,18 @@ const Checkout = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle payment processing here
-    alert('Order placed successfully!');
+    toast.success('Order placed successfully!', {
+      description: "Thank you for your order. We'll email you tracking details shortly.",
+    });
     clearCart();
+    navigate('/');
   };
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
           <div className="bg-white rounded-lg p-12">
             <p className="text-gray-500 text-xl mb-6">Your cart is empty</p>
@@ -57,8 +64,9 @@ const Checkout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Checkout</h1>
           <div className="flex items-center text-sm text-gray-500">

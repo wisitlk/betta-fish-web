@@ -3,13 +3,15 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, User, LogOut, UserPlus, Truck } from 'lucide-react';
+import { ShoppingCart, User, LogOut, UserPlus, Truck, Heart } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
+import { useWishlistStore } from '@/stores/wishlistStore';
 
 const Header = () => {
   const { user, signOut, isAdmin } = useAuth();
   const navigate = useNavigate();
   const { items } = useCartStore();
+  const wishlistItems = useWishlistStore((state) => state.items);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
@@ -18,6 +20,7 @@ const Header = () => {
   };
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const wishlistCount = wishlistItems.length;
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -36,6 +39,9 @@ const Header = () => {
             <Link to="/shop" className="text-gray-700 hover:text-blue-600 transition-colors">
               Shop
             </Link>
+            <Link to="/wishlist" className="text-gray-700 hover:text-blue-600 transition-colors">
+              Wishlist
+            </Link>
             <Link to="/shipping" className="text-gray-700 hover:text-blue-600 transition-colors flex items-center gap-1">
               <Truck className="h-4 w-4" />
               Shipping
@@ -43,7 +49,19 @@ const Header = () => {
           </nav>
 
           {/* Right side buttons */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            {/* Wishlist */}
+            <Link to="/wishlist" className="relative">
+              <Button variant="ghost" size="sm">
+                <Heart className="h-5 w-5" />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
+
             {/* Cart */}
             <Link to="/cart" className="relative">
               <Button variant="ghost" size="sm">
@@ -136,6 +154,14 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Shop
+              </Link>
+              <Link
+                to="/wishlist"
+                className="text-gray-700 hover:text-blue-600 py-2 flex items-center gap-1"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <Heart className="h-4 w-4" />
+                Wishlist
               </Link>
               <Link
                 to="/shipping"
