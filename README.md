@@ -64,18 +64,23 @@ This project is built with:
 
 **Free hosting via GitHub Pages (recommended)**
 
-This repo includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that builds the site and publishes it to GitHub Pages automatically on every push to `main`. Once merged to `main`, the site is available at:
+A ready-made GitHub Actions deploy workflow lives at `.github/workflows-pending/deploy.yml`. It builds the site and publishes it to GitHub Pages on every push to `main`, at:
 
 ```
 https://wisitlk.github.io/betta-fish-web/
 ```
 
-Requirements:
+One-time setup (needs your GitHub permissions — automation tokens can't write workflow files):
 
-- The repository must be public (GitHub Pages is free for public repos).
-- If the first deploy fails with a Pages permission error, enable it once under **Settings → Pages → Source: GitHub Actions**, then re-run the workflow.
+1. Make the repository **public** (Settings → General → Change visibility). GitHub Pages is free for public repos only; private repos need GitHub Pro/Team.
+2. Activate the workflow:
+   ```sh
+   git mv .github/workflows-pending/deploy.yml .github/workflows/deploy.yml
+   git commit -m "Activate GitHub Pages deploy workflow" && git push
+   ```
+3. Merge to `main` (or run it from the **Actions** tab → `Deploy to GitHub Pages` → `Run workflow`). If the first run reports a Pages permission error, enable **Settings → Pages → Source: GitHub Actions** once and re-run.
 
-You can also trigger a deploy manually from the **Actions** tab (`Deploy to GitHub Pages` → `Run workflow`).
+**Prefer to keep the repo private?** Netlify, Vercel, and Cloudflare Pages all offer free tiers that deploy private GitHub repos — connect the repo in their dashboard and set build command `npm run build`, output directory `dist`.
 
 **Alternatively**, open [Lovable](https://lovable.dev/projects/807ff5d8-f11f-46d6-a8dd-3ef7d581413a) and click on Share -> Publish.
 
