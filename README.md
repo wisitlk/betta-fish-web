@@ -62,7 +62,22 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/807ff5d8-f11f-46d6-a8dd-3ef7d581413a) and click on Share -> Publish.
+**Free hosting via GitHub Pages (recommended)**
+
+This repo includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that builds the site and publishes it to GitHub Pages automatically on every push to `main`. Once merged to `main`, the site is available at:
+
+```
+https://wisitlk.github.io/betta-fish-web/
+```
+
+Requirements:
+
+- The repository must be public (GitHub Pages is free for public repos).
+- If the first deploy fails with a Pages permission error, enable it once under **Settings → Pages → Source: GitHub Actions**, then re-run the workflow.
+
+You can also trigger a deploy manually from the **Actions** tab (`Deploy to GitHub Pages` → `Run workflow`).
+
+**Alternatively**, open [Lovable](https://lovable.dev/projects/807ff5d8-f11f-46d6-a8dd-3ef7d581413a) and click on Share -> Publish.
 
 ## Can I connect a custom domain to my Lovable project?
 

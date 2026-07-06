@@ -28,7 +28,7 @@ const ProductQuickView: React.FC<ProductQuickViewProps> = ({ fish, open, onClose
 
   const inCart = isInCart(fish.id);
   const wishlisted = isWishlisted(fish.id);
-  const images = fish.images?.length ? fish.images : ['/placeholder.svg'];
+  const images = fish.images?.length ? fish.images : [`${import.meta.env.BASE_URL}placeholder.svg`];
 
   const handleAddToCart = () => {
     if (fish.isSold) return;
