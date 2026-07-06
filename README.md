@@ -62,23 +62,33 @@ This project is built with:
 
 ## How can I deploy this project?
 
-**Free hosting via GitHub Pages (recommended)**
+**Free hosting via GitHub Pages (already deployed)**
 
-A ready-made GitHub Actions deploy workflow lives at `.github/workflows-pending/deploy.yml`. It builds the site and publishes it to GitHub Pages on every push to `main`, at:
+The built site is deployed from the `gh-pages` branch to:
 
 ```
 https://wisitlk.github.io/betta-fish-web/
 ```
 
-One-time setup (needs your GitHub permissions — automation tokens can't write workflow files):
+The Pages deployment succeeded, but GitHub only serves the site publicly for **public** repositories (private repos need GitHub Pro/Team). To go live, make the repository public once: **Settings → General → Danger Zone → Change visibility**.
 
-1. Make the repository **public** (Settings → General → Change visibility). GitHub Pages is free for public repos only; private repos need GitHub Pro/Team.
-2. Activate the workflow:
-   ```sh
-   git mv .github/workflows-pending/deploy.yml .github/workflows/deploy.yml
-   git commit -m "Activate GitHub Pages deploy workflow" && git push
-   ```
-3. Merge to `main` (or run it from the **Actions** tab → `Deploy to GitHub Pages` → `Run workflow`). If the first run reports a Pages permission error, enable **Settings → Pages → Source: GitHub Actions** once and re-run.
+To redeploy after making changes:
+
+```sh
+npx vite build --base=/betta-fish-web/
+cp dist/index.html dist/404.html
+touch dist/.nojekyll
+npx gh-pages -d dist -t true
+```
+
+Or automate it: a ready-made GitHub Actions workflow lives at `.github/workflows-pending/deploy.yml` — it rebuilds and deploys on every push to `main`. Activate it with your own credentials (automation tokens can't write workflow files):
+
+```sh
+git mv .github/workflows-pending/deploy.yml .github/workflows/deploy.yml
+git commit -m "Activate GitHub Pages deploy workflow" && git push
+```
+
+Then set **Settings → Pages → Source: GitHub Actions**.
 
 **Prefer to keep the repo private?** Netlify, Vercel, and Cloudflare Pages all offer free tiers that deploy private GitHub repos — connect the repo in their dashboard and set build command `npm run build`, output directory `dist`.
 
