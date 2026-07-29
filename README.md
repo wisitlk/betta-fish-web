@@ -62,7 +62,37 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/807ff5d8-f11f-46d6-a8dd-3ef7d581413a) and click on Share -> Publish.
+**Free hosting via GitHub Pages (already deployed)**
+
+The built site is deployed from the `gh-pages` branch to:
+
+```
+https://wisitlk.github.io/betta-fish-web/
+```
+
+The Pages deployment succeeded, but GitHub only serves the site publicly for **public** repositories (private repos need GitHub Pro/Team). To go live, make the repository public once: **Settings → General → Danger Zone → Change visibility**.
+
+To redeploy after making changes:
+
+```sh
+npx vite build --base=/betta-fish-web/
+cp dist/index.html dist/404.html
+touch dist/.nojekyll
+npx gh-pages -d dist -t true
+```
+
+Or automate it: a ready-made GitHub Actions workflow lives at `.github/workflows-pending/deploy.yml` — it rebuilds and deploys on every push to `main`. Activate it with your own credentials (automation tokens can't write workflow files):
+
+```sh
+git mv .github/workflows-pending/deploy.yml .github/workflows/deploy.yml
+git commit -m "Activate GitHub Pages deploy workflow" && git push
+```
+
+Then set **Settings → Pages → Source: GitHub Actions**.
+
+**Prefer to keep the repo private?** Netlify, Vercel, and Cloudflare Pages all offer free tiers that deploy private GitHub repos — connect the repo in their dashboard and set build command `npm run build`, output directory `dist`.
+
+**Alternatively**, open [Lovable](https://lovable.dev/projects/807ff5d8-f11f-46d6-a8dd-3ef7d581413a) and click on Share -> Publish.
 
 ## Can I connect a custom domain to my Lovable project?
 

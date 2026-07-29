@@ -1,12 +1,19 @@
 
 import React from 'react';
-import { X, Minus, Plus, ShoppingBag } from 'lucide-react';
+import { X, ShoppingBag } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useCartStore } from '../stores/cartStore';
 
 const ShoppingCart = () => {
-  const { items, isOpen, toggleCart, removeItem, getTotalPrice, clearCart } = useCartStore();
+  const { items, isOpen, toggleCart, closeCart, removeItem, getTotalPrice, clearCart } = useCartStore();
+  const navigate = useNavigate();
 
   if (!isOpen) return null;
+
+  const goTo = (path: string) => {
+    closeCart();
+    navigate(path);
+  };
 
   return (
     <>
@@ -80,12 +87,21 @@ const ShoppingCart = () => {
             </div>
             
             <div className="space-y-3">
-              <button className="w-full bg-ocean-600 text-white py-3 rounded-lg font-semibold hover:bg-ocean-700 transition-colors duration-200">
+              <button
+                onClick={() => goTo('/checkout')}
+                className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors duration-200"
+              >
                 Proceed to Checkout
               </button>
               <button
-                onClick={clearCart}
+                onClick={() => goTo('/cart')}
                 className="w-full border border-slate-300 text-slate-700 py-3 rounded-lg font-semibold hover:bg-slate-50 transition-colors duration-200"
+              >
+                View Cart
+              </button>
+              <button
+                onClick={clearCart}
+                className="w-full text-slate-500 py-1 text-sm font-medium hover:text-red-600 transition-colors duration-200"
               >
                 Clear Cart
               </button>

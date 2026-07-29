@@ -2,6 +2,9 @@
 import React from 'react';
 import { Fish } from '../types/fish';
 import { useCartStore } from '../stores/cartStore';
+import { useWishlistStore } from '../stores/wishlistStore';
+import { toast } from 'sonner';
+import { Check, Heart, ShoppingCart } from 'lucide-react';
 
 interface FishCardProps {
   fish: Fish;
@@ -9,13 +12,30 @@ interface FishCardProps {
 }
 
 const FishCard: React.FC<FishCardProps> = ({ fish, onClick }) => {
-  const { addItem } = useCartStore();
+  const { addItem, isInCart, openCart } = useCartStore();
+  const { toggleItem, isWishlisted } = useWishlistStore();
+
+  const inCart = isInCart(fish.id);
+  const wishlisted = isWishlisted(fish.id);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!fish.isSold) {
-      addItem(fish);
+    if (fish.isSold) return;
+    const result = addItem(fish);
+    if (result === 'added') {
+      toast.success(`${fish.name} added to cart`);
+      openCart();
+    } else {
+      toast.info('This fish is already in your cart');
     }
+  };
+
+  const handleWishlist = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const result = toggleItem(fish);
+    toast[result === 'added' ? 'success' : 'info'](
+      result === 'added' ? `${fish.name} saved to wishlist` : `${fish.name} removed from wishlist`
+    );
   };
 
   return (
@@ -31,7 +51,7 @@ const FishCard: React.FC<FishCardProps> = ({ fish, onClick }) => {
           alt={fish.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        
+
         {/* Sold Overlay */}
         {fish.isSold && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
@@ -65,13 +85,34 @@ const FishCard: React.FC<FishCardProps> = ({ fish, onClick }) => {
           )}
         </div>
 
+        {/* Wishlist button */}
+        <button
+          onClick={handleWishlist}
+          className={`absolute top-3 right-3 p-2 rounded-full bg-white/90 backdrop-blur shadow-sm transition-colors ${
+            wishlisted ? 'text-red-500' : 'text-gray-500 hover:text-red-500'
+          }`}
+          aria-label="Toggle wishlist"
+        >
+          <Heart size={18} fill={wishlisted ? 'currentColor' : 'none'} />
+        </button>
+
         {/* Quick Add Button */}
         {!fish.isSold && (
           <button
             onClick={handleAddToCart}
-            className="absolute bottom-3 right-3 bg-black text-white px-3 py-2 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-gray-800"
+            className={`absolute bottom-3 right-3 px-3 py-2 text-sm font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center ${
+              inCart ? 'bg-green-600 text-white' : 'bg-black text-white hover:bg-gray-800'
+            }`}
           >
-            Add to Cart
+            {inCart ? (
+              <>
+                <Check size={16} className="mr-1" /> In Cart
+              </>
+            ) : (
+              <>
+                <ShoppingCart size={16} className="mr-1" /> Add to Cart
+              </>
+            )}
           </button>
         )}
       </div>
@@ -81,14 +122,14 @@ const FishCard: React.FC<FishCardProps> = ({ fish, onClick }) => {
           <span className="text-sm text-gray-500 font-medium">{fish.code}</span>
           <span className="text-lg font-bold text-black">${fish.price.toFixed(2)}</span>
         </div>
-        
+
         <h3 className="font-medium text-gray-900 mb-2 line-clamp-2 leading-tight">{fish.name}</h3>
-        
+
         <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
           <span>{fish.tailType}</span>
           <span>{fish.gender}</span>
         </div>
-        
+
         <div className="flex flex-wrap gap-1">
           {fish.color.slice(0, 3).map((color) => (
             <span
